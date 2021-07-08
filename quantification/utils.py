@@ -1,10 +1,4 @@
-import cvxpy
-import quadprog
 import numpy as np
-import math
-import numbers
-from sklearn.utils import check_X_y
-from sklearn.utils.validation import check_array, check_consistent_length
 
 
 def absolute_error(p_true, p_pred):
