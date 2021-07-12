@@ -12,7 +12,7 @@ from datetime import datetime
 from tqdm import tqdm
 
 #Quapy imports. Until the library is stable enough, lets depend from our local clone
-sys.path.append(r'/media/nas/pgonzalez/QuaPy2')
+sys.path.append(r'/media/nas/pgonzalez/QuaPy')
 import quapy as qp
 from quapy.method.meta import QuaNet
 from quapy.classification.neural import NeuralClassifierTrainer, LSTMnet
@@ -53,7 +53,7 @@ fe = LSTMFeatureExtractionModule(vocabulary_size=vocabulary_size,embedding_size=
                                 output_size=32,dropout_lstm=0,dropout_linear=0.2)
 histnetc = HistNet(train_epochs=5000,test_epochs=1,start_lr=0.001,end_lr=0.001,n_bags=500,bag_size=sample_size,n_bins=8,random_seed = seed_value,linear_sizes=[128],
                     feature_extraction_module=fe,bag_generator=BagGenerator(device=device),batch_size=16,loss_function=torch.nn.L1Loss(),
-                    dropout=0.3,epsilon=0.005,weight_decay=0.00005,histogram='sigmoid',use_labels=True,use_labels_epochs=10,val_split=0.2,device=device,verbose=1,dataset_name=dataset_name)
+                    dropout=0.3,epsilon=0.005,weight_decay=0.00005,histogram='softrbf',use_labels=True,use_labels_epochs=10,val_split=0.2,device=device,verbose=1,dataset_name=dataset_name)
 histnetc.fit(X=x_train, y=y_train)
 
 np.random.seed(seed=seed_value)
@@ -65,7 +65,7 @@ fe = LSTMFeatureExtractionModule(vocabulary_size=vocabulary_size,embedding_size=
                                 output_size=32,dropout_lstm=0,dropout_linear=0.2)
 histnet = HistNet(train_epochs=5000,test_epochs=1,start_lr=0.001,end_lr=0.001,n_bags=500,bag_size=sample_size,n_bins=8,random_seed = seed_value,linear_sizes=[128],
                     feature_extraction_module=fe,bag_generator=BagGenerator(device=device),batch_size=16,loss_function=torch.nn.L1Loss(),
-                    dropout=0.3,epsilon=0.005,weight_decay=0.00005,histogram='sigmoid',use_labels=False,val_split=0.2,device=device,verbose=1,dataset_name=dataset_name)
+                    dropout=0.3,epsilon=0.005,weight_decay=0.00005,histogram='softrbf',use_labels=False,val_split=0.2,device=device,verbose=1,dataset_name=dataset_name)
 histnet.fit(X=x_train, y=y_train)
 
 np.random.seed(seed=seed_value)

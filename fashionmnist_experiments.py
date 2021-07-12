@@ -16,7 +16,7 @@ import pytorch_lightning as pl
 import os
 
 import sys
-sys.path.append(r'/media/nas/pgonzalez/QuaPy2')
+sys.path.append(r'/media/nas/pgonzalez/QuaPy')
 import quapy as qp
 from quantification.utils import absolute_error,relative_absolute_error,binary_kld
 from quapy.method.meta import QuaNet
@@ -178,7 +178,7 @@ pl.seed_everything(seed_value)
 fe = CNNFeatureExtractionModule(output_size=16)
 histnetc = HistNet(train_epochs=5000,test_epochs=1,start_lr=0.001,end_lr=0.0001,n_bags=500,bag_size=sample_size,n_bins=8,random_seed = seed_value,linear_sizes=[128],
                     feature_extraction_module=fe,bag_generator=BagGenerator(device=device),batch_size=16,loss_function=torch.nn.L1Loss(),patience=20,
-                    dropout=0.3,epsilon=0.005,weight_decay=0,histogram='sigmoid',use_labels=True,use_labels_epochs=10,val_split=0.2,device=device,verbose=1,dataset_name=dataset_name)
+                    dropout=0.3,epsilon=0.005,weight_decay=0,histogram='softrbf',use_labels=True,use_labels_epochs=10,val_split=0.2,device=device,verbose=1,dataset_name=dataset_name)
 histnetc.fit(X=x_train, y=y_train)
 
 #HistNet No Labels
@@ -190,7 +190,7 @@ pl.seed_everything(seed_value)
 fe = CNNFeatureExtractionModule(output_size=16)
 histnet = HistNet(train_epochs=5000,test_epochs=1,start_lr=0.0001,end_lr=0.0001,n_bags=500,bag_size=sample_size,n_bins=8,random_seed = seed_value,linear_sizes=[128],
                     feature_extraction_module=fe,bag_generator=BagGenerator(device=device),batch_size=16,loss_function=torch.nn.L1Loss(),patience=20,
-                    dropout=0.3,epsilon=0.005,weight_decay=0,histogram='sigmoid',use_labels=False,val_split=0.2,device=device,verbose=1,dataset_name=dataset_name)
+                    dropout=0.3,epsilon=0.005,weight_decay=0,histogram='softrbf',use_labels=False,val_split=0.2,device=device,verbose=1,dataset_name=dataset_name)
 histnet.fit(X=x_train, y=y_train)
 
 np.random.seed(seed=seed_value)
